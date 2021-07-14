@@ -1,4 +1,4 @@
-package com.example.weatherapp.ui.notifications
+package com.example.weatherapp.ui.dashboard
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,13 +8,12 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.weatherapp.R
-import com.example.weatherapp.databinding.FragmentNotificationsBinding
+import com.example.weatherapp.databinding.FragmentLocationsBinding
 
-class NotificationsFragment : Fragment() {
+class LocationsFragment : Fragment() {
 
-    private lateinit var notificationsViewModel: NotificationsViewModel
-    private var _binding: FragmentNotificationsBinding? = null
+    private lateinit var locationsViewModel: LocationsViewModel
+    private var _binding: FragmentLocationsBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -25,16 +24,13 @@ class NotificationsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        notificationsViewModel =
-            ViewModelProvider(this).get(NotificationsViewModel::class.java)
+        locationsViewModel =
+            ViewModelProvider(this).get(LocationsViewModel::class.java)
 
-        _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
+        _binding = FragmentLocationsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textNotifications
-        notificationsViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+
         return root
     }
 
