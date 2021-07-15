@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 //https://api.openweathermap.org/data/2.5/weather?q=Saint%20Petersburg&appid=e89690adf00dede235b7c4df6198ea1c&units=metric
 
-class WeatherAPIService {
+class WeatherAPIService constructor(city: String) {
 
     private val baseUrl = "https://api.openweathermap.org/"
     private val api = Retrofit.Builder()
@@ -17,9 +17,9 @@ class WeatherAPIService {
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
-        .create(WeatherAPI::class.java )
+        .create(WeatherAPI::class.java)
 
     fun getDataService(): Single<WeatherModel>{
-        return api.getData()
+        return api.getData("warsaw", "e89690adf00dede235b7c4df6198ea1c", "metric")
     }
 }

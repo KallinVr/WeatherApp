@@ -7,16 +7,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.example.weatherapp.databinding.FragmentHomeBinding
+import com.example.weatherapp.retrofit.service.WeatherAPIService
 import com.example.weatherapp.retrofit.viewmodel.MainViewModel
-import kotlin.math.max
 
 class HomeFragment : Fragment() {
 
@@ -65,15 +62,11 @@ class HomeFragment : Fragment() {
         degrees = binding.degrees
 
 
-        weatherViewModel = ViewModelProviders.of(requireActivity()).get(MainViewModel::class.java)
-
-        var cName = get.getString("cityName", "saint petersburg")
+        weatherViewModel = MainViewModel(WeatherAPIService("tokyo"))
 
         weatherViewModel.refreshData()
 
         getLiveData()
-
-
         return root
     }
 
@@ -82,7 +75,6 @@ class HomeFragment : Fragment() {
         weatherViewModel.weatherData.observe(requireActivity(), Observer { data ->
             data.let {
                 degrees.text = data.main.temp.toString()[0].toString() + data.main.temp.toString()[1].toString() + "Cº"
-
                 weatherDesc.text = data.weather.get(0).description.toString()
                 cityName.text = "saint petersburg"
                 humidity.text = "humidity: " + data.main.humidity.toString()

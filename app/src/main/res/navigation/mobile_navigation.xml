@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.example.weatherapp.ui.dashboard.LocationsFragment"
+        android:name="com.example.weatherapp.ui.Locations.LocationsFragment"
         android:label="@string/title_locations"
         tools:layout="@layout/fragment_Locations" />
 

@@ -1,5 +1,6 @@
 package com.example.weatherapp.retrofit.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.weatherapp.retrofit.model.WeatherModel
@@ -9,7 +10,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
-class MainViewModel: ViewModel() {
+class MainViewModel(private val repository: WeatherAPIService): ViewModel() {
 
     private val weatherAPIService = WeatherAPIService()
     private val disposable = CompositeDisposable()
@@ -32,6 +33,7 @@ class MainViewModel: ViewModel() {
 
                     override fun onError(e: Throwable) {
                         e.stackTrace
+                        Log.e("INFO", e.toString())
                     }
                 })
         )
