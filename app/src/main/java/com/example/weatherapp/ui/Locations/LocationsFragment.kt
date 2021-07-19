@@ -22,7 +22,8 @@ class LocationsFragment : Fragment() {
 
     private lateinit var locationsViewModel: LocationsViewModel
     private var _binding: FragmentLocationsBinding? = null
-
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: LocationsRVAdapter
 
     private val binding get() = _binding!!
 
@@ -37,13 +38,13 @@ class LocationsFragment : Fragment() {
         _binding = FragmentLocationsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val recyclerView: RecyclerView = binding.locationRv
+        recyclerView = binding.locationRv
         val addCityButton = binding.addCityButton
         val linearlayoutManager = LinearLayoutManager(activity)
 
         recyclerView.layoutManager = linearlayoutManager
 
-        var adapter = LocationsRVAdapter(this)
+        adapter = LocationsRVAdapter(this)
 
         var viewModel = ViewModelProvider(this, ViewModelFactory("kiev"))
             .get(MainViewModel::class.java)
@@ -88,6 +89,11 @@ class LocationsFragment : Fragment() {
         }
 
         return list
+    }
+
+    override fun onResume() {
+        super.onResume()
+        adapter.setData(insertData())
     }
 
     override fun onDestroyView() {

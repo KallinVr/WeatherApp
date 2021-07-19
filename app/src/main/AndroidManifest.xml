@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WeatherApp">
-        <activity android:name=".ui.Locations.WeatherScreen"></activity>
+        <activity android:name=".ui.Locations.WeatherScreenActivity"></activity>
         <activity android:name=".ui.Locations.AddCityActivity" />
         <activity
             android:name=".ui.MainActivity"

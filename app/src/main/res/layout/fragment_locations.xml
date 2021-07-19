@@ -13,7 +13,7 @@
         android:layout_marginHorizontal="20dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="search"
+        android:hint="search"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toStartOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="parent"

@@ -2,17 +2,15 @@ package com.example.weatherapp.ui.Locations
 
 import android.annotation.SuppressLint
 import android.content.ContentValues
-import android.database.Cursor
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.R
 import com.example.weatherapp.db.DBHelper
-import com.example.weatherapp.ui.Locations.LocationsRVAdapter
+import com.example.weatherapp.retrofit.viewmodel.MainViewModel
+import java.util.*
 
 class AddCityActivity : AppCompatActivity() {
 
@@ -33,7 +31,7 @@ class AddCityActivity : AppCompatActivity() {
         dbHelper = DBHelper(this)
 
         addCityToListButton.setOnClickListener {
-            val name: String = cityAddEditText.text.toString()
+            val name: String = cityAddEditText.text.toString().lowercase(Locale.getDefault())
 
             if (checkIfCityExist(name)){
                 val database = dbHelper.writableDatabase
@@ -50,6 +48,17 @@ class AddCityActivity : AppCompatActivity() {
 
     // fix later
     private fun checkIfCityExist(name: String): Boolean {
+
+        var weatherViewModel: MainViewModel = MainViewModel(name)
+        weatherViewModel.refreshData()
+
+
+        weatherViewModel.weatherData.observe(this, androidx.lifecycle.Observer { data ->
+            data.let {
+
+            }
+        })
+
 
         return true
     }

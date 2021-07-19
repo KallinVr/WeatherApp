@@ -15,11 +15,6 @@ class LocationsRVAdapter constructor(private val fragment : Fragment): RecyclerV
     private var list = mutableListOf<LocationItem?>()
     lateinit var viewGroup: View;
 
-
-    fun update(){
-        notifyDataSetChanged()
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocationViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = LocationItemBinding.inflate(inflater,parent,false)
@@ -60,8 +55,8 @@ class LocationsRVAdapter constructor(private val fragment : Fragment): RecyclerV
         })
 
         holder.binding.itemView.setOnClickListener {
-            val intent = Intent(fragment.activity, WeatherScreen::class.java)
-            intent.putExtra("degress", degrees)
+            val intent = Intent(fragment.activity, WeatherScreenActivity::class.java)
+            intent.putExtra("degrees", degrees)
             intent.putExtra("desc", desc)
             intent.putExtra("cityName", cityName)
             intent.putExtra("humidity", humidity)
