@@ -1,5 +1,6 @@
 package com.example.weatherapp.ui.Locations
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,18 +8,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.databinding.LocationItemBinding
-import com.example.weatherapp.retrofit.service.WeatherAPIService
 import com.example.weatherapp.retrofit.viewmodel.MainViewModel
 
-class LocationsRVAdapter constructor(private val c : Fragment): RecyclerView.Adapter<LocationsRVAdapter.LocationViewHolder>() {
+class LocationsRVAdapter constructor(private val fragment : Fragment): RecyclerView.Adapter<LocationsRVAdapter.LocationViewHolder>() {
 
     private var list = mutableListOf<LocationItem?>()
     lateinit var viewGroup: View;
 
 
-    @JvmName("setNewsList1")
-    fun setNewsList(news: List<LocationItem?>){
-        this.list = news.toMutableList()
+    fun update(){
         notifyDataSetChanged()
     }
 
@@ -34,14 +32,45 @@ class LocationsRVAdapter constructor(private val c : Fragment): RecyclerView.Ada
         holder.weatherViewModel = MainViewModel(list[position]?.cityName!!)
         holder.weatherViewModel.refreshData()
 
+        lateinit var cityName: String
+        lateinit var desc: String
+        lateinit var degrees: String
+        lateinit var humidity: String
+        lateinit var windSpeed: String
+        lateinit var maxTemp: String
+        lateinit var minTemp: String
 
-        holder.weatherViewModel.weatherData.observe(c.requireActivity(), Observer { data ->
+
+        holder.weatherViewModel.weatherData.observe(fragment.requireActivity(), Observer { data ->
             data.let {
-                holder.binding.locationCityNameTitle.text = data.name.toString()
-                holder.binding.locationDegreesTextView.text = data.main.temp.toString() + "Cº"
-                holder.binding.locationDescTextView.text = data.weather.get(0).description.toString()
+
+                degrees = data.main.temp.toString() + "Cº"
+                desc = data.weather.get(0).description.toString()
+                cityName = data.name
+                humidity = data.main.humidity.toString()
+                windSpeed = data.wind.speed.toString()
+                maxTemp = data.main.tempMax.toString()
+                minTemp = data.main.tempMin.toString()
+
+
+                holder.binding.locationCityNameTitle.text = cityName
+                holder.binding.locationDegreesTextView.text = degrees
+                holder.binding.locationDescTextView.text = desc
             }
         })
+
+        holder.binding.itemView.setOnClickListener {
+            val intent = Intent(fragment.activity, WeatherScreen::class.java)
+            intent.putExtra("degress", degrees)
+            intent.putExtra("desc", desc)
+            intent.putExtra("cityName", cityName)
+            intent.putExtra("humidity", humidity)
+            intent.putExtra("windSpeed", windSpeed)
+            intent.putExtra("maxTemp", maxTemp)
+            intent.putExtra("minTemp", minTemp)
+
+            fragment.activity?.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int = list.size

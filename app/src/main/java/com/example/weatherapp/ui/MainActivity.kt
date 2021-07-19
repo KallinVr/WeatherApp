@@ -1,16 +1,16 @@
-package com.example.weatherapp
+package com.example.weatherapp.ui
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.weatherapp.R
 import com.example.weatherapp.databinding.ActivityMainBinding
-import com.example.weatherapp.retrofit.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
 
