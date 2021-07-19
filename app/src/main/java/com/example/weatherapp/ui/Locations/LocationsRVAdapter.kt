@@ -31,13 +31,15 @@ class LocationsRVAdapter constructor(private val c : Fragment): RecyclerView.Ada
 
     override fun onBindViewHolder(holder: LocationViewHolder, position: Int) {
 
-        holder.weatherViewModel = MainViewModel(WeatherAPIService("moscow"))
+        holder.weatherViewModel = MainViewModel(list[position]?.cityName!!)
         holder.weatherViewModel.refreshData()
 
 
         holder.weatherViewModel.weatherData.observe(c.requireActivity(), Observer { data ->
             data.let {
-                holder.binding.locationCityNameTitle.text = data.toString()
+                holder.binding.locationCityNameTitle.text = data.name.toString()
+                holder.binding.locationDegreesTextView.text = data.main.temp.toString() + "Cº"
+                holder.binding.locationDescTextView.text = data.weather.get(0).description.toString()
             }
         })
     }

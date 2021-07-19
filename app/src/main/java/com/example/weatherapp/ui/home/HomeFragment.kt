@@ -62,7 +62,7 @@ class HomeFragment : Fragment() {
         degrees = binding.degrees
 
 
-        weatherViewModel = MainViewModel(WeatherAPIService("tokyo"))
+        weatherViewModel = MainViewModel("Saint petersburg")
 
         weatherViewModel.refreshData()
 
@@ -76,7 +76,7 @@ class HomeFragment : Fragment() {
             data.let {
                 degrees.text = data.main.temp.toString()[0].toString() + data.main.temp.toString()[1].toString() + "Cº"
                 weatherDesc.text = data.weather.get(0).description.toString()
-                cityName.text = "saint petersburg"
+                cityName.text = data.name
                 humidity.text = "humidity: " + data.main.humidity.toString()
                 windSpeed.text = "wind speed: " + data.wind.speed.toString()
                 maxTemp.text = "max temperature: " + data.main.tempMax.toString()

@@ -10,9 +10,9 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
-class MainViewModel(private val repository: WeatherAPIService): ViewModel() {
+class MainViewModel(var city: String): ViewModel() {
 
-    private val weatherAPIService = WeatherAPIService()
+    private val weatherAPIService = WeatherAPIService(city,)
     private val disposable = CompositeDisposable()
 
     val weatherData = MutableLiveData<WeatherModel>()

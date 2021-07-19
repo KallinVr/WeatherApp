@@ -43,7 +43,7 @@ class LocationsFragment : Fragment() {
 
         var adapter = LocationsRVAdapter(this)
 
-        var viewModel = ViewModelProvider(this, ViewModelFactory(WeatherAPIService("moscow")))
+        var viewModel = ViewModelProvider(this, ViewModelFactory("kiev"))
             .get(MainViewModel::class.java)
         viewModel.weatherData.observe(viewLifecycleOwner, Observer{
             adapter.setData(insertData())
@@ -58,11 +58,11 @@ class LocationsFragment : Fragment() {
     private fun insertData(): MutableList<LocationItem?> {
         val list = mutableListOf<LocationItem?>()
 
-        list.add(LocationItem("Moscow", "test", "test", "test", "test", "test"))
-        list.add(LocationItem("Prague", "test", "test", "test", "test", "test"))
-        list.add(LocationItem("Bejing", "test", "test", "test", "test", "test"))
-        list.add(LocationItem("Tokyo", "test", "test", "test", "test", "test"))
-        list.add(LocationItem("Surgut", "test", "test", "test", "test", "test"))
+        list.add(LocationItem("Moscow"))
+        list.add(LocationItem("Prague"))
+        list.add(LocationItem("Sidney"))
+        list.add(LocationItem("Tokyo"))
+        list.add(LocationItem("Surgut"))
 
         return list
     }
