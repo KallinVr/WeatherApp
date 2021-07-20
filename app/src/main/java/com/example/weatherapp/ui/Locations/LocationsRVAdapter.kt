@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.databinding.LocationItemBinding
-import com.example.weatherapp.retrofit.viewmodel.MainViewModel
+import com.example.weatherapp.retrofit.viewmodel.WeatherViewModel
 
 class LocationsRVAdapter constructor(private val fragment : Fragment): RecyclerView.Adapter<LocationsRVAdapter.LocationViewHolder>() {
 
@@ -24,7 +24,7 @@ class LocationsRVAdapter constructor(private val fragment : Fragment): RecyclerV
 
     override fun onBindViewHolder(holder: LocationViewHolder, position: Int) {
 
-        holder.weatherViewModel = MainViewModel(list[position]?.cityName!!)
+        holder.weatherViewModel = WeatherViewModel(list[position]?.cityName!!)
         holder.weatherViewModel.refreshData()
 
         lateinit var cityName: String
@@ -40,7 +40,7 @@ class LocationsRVAdapter constructor(private val fragment : Fragment): RecyclerV
             data.let {
 
                 degrees = data.main.temp.toString() + "Cº"
-                desc = data.weather.get(0).description.toString()
+                desc = data.weather.get(0).description
                 cityName = data.name
                 humidity = data.main.humidity.toString()
                 windSpeed = data.wind.speed.toString()
@@ -72,7 +72,7 @@ class LocationsRVAdapter constructor(private val fragment : Fragment): RecyclerV
 
 
     class LocationViewHolder(val binding: LocationItemBinding): RecyclerView.ViewHolder(binding.root){
-        lateinit var weatherViewModel: MainViewModel
+        lateinit var weatherViewModel: WeatherViewModel
     }
 
     fun setData(temp: MutableList<LocationItem?>){

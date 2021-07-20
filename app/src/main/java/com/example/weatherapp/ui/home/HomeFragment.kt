@@ -13,12 +13,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.weatherapp.databinding.FragmentHomeBinding
 import com.example.weatherapp.retrofit.service.WeatherAPIService
-import com.example.weatherapp.retrofit.viewmodel.MainViewModel
+import com.example.weatherapp.retrofit.viewmodel.WeatherViewModel
 
 class HomeFragment : Fragment() {
 
 
-    private lateinit var weatherViewModel: MainViewModel
+    private lateinit var weatherViewModel: WeatherViewModel
     private lateinit var get: SharedPreferences
     private lateinit var set: SharedPreferences.Editor
     private lateinit var homeViewModel: HomeViewModel
@@ -62,7 +62,7 @@ class HomeFragment : Fragment() {
         degrees = binding.degrees
 
 
-        weatherViewModel = MainViewModel("Saint petersburg")
+        weatherViewModel = WeatherViewModel("Saint petersburg")
 
         weatherViewModel.refreshData()
 
@@ -74,7 +74,7 @@ class HomeFragment : Fragment() {
     private fun getLiveData() {
         weatherViewModel.weatherData.observe(requireActivity(), Observer { data ->
             data.let {
-                degrees.text = data.main.temp.toString()[0].toString() + data.main.temp.toString()[1].toString() + "Cº"
+                degrees.text = data.main.temp.toString() + "Cº"
                 weatherDesc.text = data.weather.get(0).description.toString()
                 cityName.text = data.name
                 humidity.text = "humidity: " + data.main.humidity.toString()

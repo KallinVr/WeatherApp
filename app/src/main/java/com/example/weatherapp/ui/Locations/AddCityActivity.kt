@@ -4,12 +4,14 @@ import android.annotation.SuppressLint
 import android.content.ContentValues
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import com.example.weatherapp.R
 import com.example.weatherapp.db.DBHelper
-import com.example.weatherapp.retrofit.viewmodel.MainViewModel
+import com.example.weatherapp.retrofit.viewmodel.WeatherViewModel
+import com.example.weatherapp.ui.MainActivity
 import java.util.*
 
 class AddCityActivity : AppCompatActivity() {
@@ -45,21 +47,8 @@ class AddCityActivity : AppCompatActivity() {
         }
     }
 
-
-    // fix later
+    //fix later
     private fun checkIfCityExist(name: String): Boolean {
-
-        var weatherViewModel: MainViewModel = MainViewModel(name)
-        weatherViewModel.refreshData()
-
-
-        weatherViewModel.weatherData.observe(this, androidx.lifecycle.Observer { data ->
-            data.let {
-
-            }
-        })
-
-
         return true
     }
 }
